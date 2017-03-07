@@ -13,6 +13,5 @@ namespace WilliamHill.TechChallenge.Implementation
         public int Participant { get; set; }
         public int Stake { get; set; }
         public int Win { get; set; }
-        public bool Settled { get; set; }
     }
 }

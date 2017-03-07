@@ -1,28 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WilliamHill.TechChallenge.Implementation;
 
 namespace WilliamHill.TechChallenge
 {
     public class FileProcessor
     {
-        private readonly string mSettledBetsFile;
-        private readonly string mUnsettledBetsFile;
-
-        public FileProcessor(ITechChallengeConfig config)
+       
+        public static IEnumerable<Bet> LoadFile(string fileName)
         {
-            mSettledBetsFile = config.SettledFile;
-            mUnsettledBetsFile = config.UnsettledFile;
-
-            if (mSettledBetsFile == null) throw new ArgumentNullException(nameof(config.UnsettledFile));
-            if (mUnsettledBetsFile == null) throw new ArgumentNullException(nameof(config.UnsettledFile));
-        }
-
-        public void Run()
-        {
-            // first line contains the headers
-            var settledBets = File.ReadLines(mSettledBetsFile).SelectMany(line => line.Split(',')).Skip(1);
-            var unSettledBets = File.ReadLines(mUnsettledBetsFile).SelectMany(line => line.Split(',')).Skip(1);
+            return File.ReadLines(fileName).SelectMany(line => line.Split(',')).Skip(1).Select(columns =>
+                new Bet()
+                {
+                    Customer = columns[0],
+                    Event = columns[1],
+                    Participant = columns[2],
+                    Stake = columns[3],
+                    Win = columns[4]
+                });
         }
     }
 }

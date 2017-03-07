@@ -19,7 +19,7 @@ namespace WilliamHill.TechChallenge.Implementation.RiskStrategies
 
         public IEnumerable<string> Evaluate(IEnumerable<Bet> settledBets, IEnumerable<Bet> unsettledBets)
         {
-            var b = settledBets.GroupBy(bet => bet.Customer).Select(bets => new
+            var b = settledBets.GroupBy(bet => bet.Customer).Where(bet=>bet.Count() > 1).Select(bets => new
             {
                 Customer = bets.Key,
                 WinRate = bets.Average(bet => bet.Win == 0 ? 0 : 1)

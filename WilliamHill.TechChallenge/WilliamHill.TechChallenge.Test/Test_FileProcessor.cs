@@ -12,29 +12,23 @@ namespace WilliamHill.TechChallenge.Test
         [TestInitialize]
         public void Test_Initialize()
         {
-            mConfig = new TechChallengeConfig();
-            mConfig.SettledFile = System.IO.Path.Combine(Environment.CurrentDirectory, "TestData", "Settled.csv");
-            mConfig.UnsettledFile = System.IO.Path.Combine(Environment.CurrentDirectory, "TestData", "Unsettled.csv");
+            var settledFile = System.IO.Path.Combine(Environment.CurrentDirectory, "TestData", "Settled.csv");
+            var unsettledFile = System.IO.Path.Combine(Environment.CurrentDirectory, "TestData", "Unsettled.csv");
+            mConfig = new TestConfig() { SettledFile= settledFile, UnsettledFile = unsettledFile};
         }
 
         [TestMethod]
-        public void Test_FileProcessor_Init_Success()
+        public void Test_FileProcessor_Load_Success()
         {
-            var fileProcessor = new FileProcessor(mConfig);
+            var settledBets = FileProcessor.LoadFile(mConfig.SettledFile);
+            var unsettledBets = FileProcessor.LoadFile(mConfig.UnsettledFile);
         }
 
-        [TestMethod,ExpectedException(typeof(ArgumentNullException))]
-        public void Test_FileProcessor_MissingConfig_Failure()
+        private class TestConfig : ITechChallengeConfig
         {
-            mConfig = new TechChallengeConfig();
-            var fileProcessor = new FileProcessor(mConfig);
-        }
-
-        [TestMethod]
-        public void Test_FileProcessor_Run_Success()
-        {
-            var fileProcessor = new FileProcessor(mConfig);
-            fileProcessor.Run();
+            public string SettledFile { get; set; }
+            public string UnsettledFile { get; set; }
+            public double HighWinRateThreshold { get; set; }
         }
     }
 }
