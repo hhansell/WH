@@ -11,8 +11,6 @@ namespace WilliamHill.TechChallenge
 
         public FileProcessor(ITechChallengeConfig config)
         {
-            if (config == null) throw new ArgumentNullException(nameof(config));
-
             mSettledBetsFile = config.SettledFile;
             mUnsettledBetsFile = config.UnsettledFile;
 
@@ -22,8 +20,9 @@ namespace WilliamHill.TechChallenge
 
         public void Run()
         {
-            var settledBets = File.ReadLines(mSettledBetsFile).SelectMany(line => line.Split(','));
-            var unSettledBets = File.ReadLines(mUnsettledBetsFile).SelectMany(line => line.Split(','));
+            // first line contains the headers
+            var settledBets = File.ReadLines(mSettledBetsFile).SelectMany(line => line.Split(',')).Skip(1);
+            var unSettledBets = File.ReadLines(mUnsettledBetsFile).SelectMany(line => line.Split(',')).Skip(1);
         }
     }
 }

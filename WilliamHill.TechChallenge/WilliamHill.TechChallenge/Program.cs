@@ -11,7 +11,9 @@ namespace WilliamHill.TechChallenge
     {
         static void Main(string[] args)
         {
-           
+            ITechChallengeConfig config = new TechChallengeConfig();
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            
         }
     }
 }

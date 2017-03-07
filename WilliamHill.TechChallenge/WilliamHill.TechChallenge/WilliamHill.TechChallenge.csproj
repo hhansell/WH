@@ -44,7 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileProcessor.cs" />
+    <Compile Include="Implementation\Bet.cs" />
+    <Compile Include="Implementation\RiskMetrics.cs" />
     <Compile Include="Implementation\TechChallengeConfig.cs" />
+    <Compile Include="Interfaces\IRiskMetrics.cs" />
     <Compile Include="Interfaces\ITechChallengeConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
