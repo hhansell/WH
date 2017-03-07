@@ -7,8 +7,8 @@ using WilliamHill.TechChallenge.Implementation;
 
 namespace WilliamHill.TechChallenge.Interfaces
 {
-    interface IRiskMetrics
+    interface IRiskStrategy
     {
-        int[] GetHighWinRates(IEnumerable<Bet> settledBets);
+        IEnumerable<string> Evaluate(IEnumerable<Bet> settledBets, IEnumerable<Bet> unsettledBets);
     }
 }
