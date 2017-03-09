@@ -46,6 +46,10 @@
   <ItemGroup>
     <Compile Include="FileProcessor.cs" />
     <Compile Include="Implementation\Bet.cs" />
+    <Compile Include="Implementation\RiskStrategies\UnsettledHighStakeBets.cs" />
+    <Compile Include="Implementation\RiskStrategies\HighWinnings.cs" />
+    <Compile Include="Implementation\RiskStrategies\HighStakeBets.cs" />
+    <Compile Include="Implementation\RiskStrategies\UnsettledHighWinRate.cs" />
     <Compile Include="Implementation\RiskStrategyRunner.cs" />
     <Compile Include="Implementation\RiskStrategies\HighWinRate.cs" />
     <Compile Include="Implementation\TechChallengeConfig.cs" />

@@ -50,6 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="RiskStrategies\Test_UnsettledHighWinRate.cs" />
+    <Compile Include="RiskStrategies\Test_UnsettledHighStakeBets.cs" />
+    <Compile Include="RiskStrategies\Test_HighWinnings.cs" />
+    <Compile Include="RiskStrategies\Test_HighStakeBets.cs" />
     <Compile Include="Test_FileProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RiskStrategies\Test_HighWinRate.cs" />

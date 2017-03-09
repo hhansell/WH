@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using System.Linq;
+using WilliamHill.TechChallenge.Interfaces;
 
 namespace WilliamHill.TechChallenge.Implementation
 {
@@ -18,20 +18,31 @@ namespace WilliamHill.TechChallenge.Implementation
             Validate();
         }
 
+        #region ITechChallengeConfig Members
+
         public string SettledFile { get; set; }
         public string UnsettledFile { get; set; }
         public double HighWinRateThreshold { get; set; }
+        public double StakeMultiplierThreshold { get; set; }
+        public double HighWinningTreshold { get; set; }
+        public double HighStakeMultiplierThreshold { get; set; }
+
+        #endregion
+
         public void Validate()
         {
-
             if (HighWinRateThreshold == 0) throw new ConfigurationErrorsException(nameof(HighWinRateThreshold));
+            if (StakeMultiplierThreshold == 0) throw new ConfigurationErrorsException(nameof(StakeMultiplierThreshold));
+            if (HighStakeMultiplierThreshold == 0) throw new ConfigurationErrorsException(nameof(HighStakeMultiplierThreshold));
+            if (HighWinningTreshold == 0) throw new ConfigurationErrorsException(nameof(HighWinningTreshold));
         }
 
         private void LoadConfig()
         {
-            HighWinRateThreshold = int.Parse(System.Configuration.ConfigurationManager.AppSettings.Get("HighWinRateThreshold"));
+            HighWinRateThreshold = double.Parse(ConfigurationManager.AppSettings.Get("HighWinRateThreshold"));
+            StakeMultiplierThreshold = double.Parse(ConfigurationManager.AppSettings.Get("StakeMultiplierThreshold"));
+            HighStakeMultiplierThreshold = double.Parse(ConfigurationManager.AppSettings.Get("HighStakeMultiplierThreshold"));
+            HighWinningTreshold = double.Parse(ConfigurationManager.AppSettings.Get("HighWinningTreshold"));
         }
-
-      
     }
 }

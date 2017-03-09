@@ -7,39 +7,38 @@ using WilliamHill.TechChallenge.Interfaces;
 namespace WilliamHill.TechChallenge.Test.RiskStrategies
 {
     [TestClass]
-    public class Test_HighWinRate
+    public class Test_HighWinnings
     {
         private ITechChallengeConfig mConfig;
 
         [TestInitialize]
         public void Test_Initialize()
         {
-            mConfig = new TestConfig { HighWinRateThreshold = 0.6};
+            mConfig = new TestConfig { HighWinningTreshold = 1000};
         }
 
 
         [TestMethod]
-        public void Test_HighWinRateForOneCustomer_Success()
+        public void Test_HighWinningsForOneCustomer_Success()
         {
-            var riskMetrics = new HighWinRate(mConfig.HighWinRateThreshold);
+            var riskMetrics = new HighWinnings(mConfig.HighWinningTreshold);
 
-            Bet[] bets =
+            Bet[] settledBets =
             {
                 new Bet {Customer = 1, Stake = 1, Win = 1},
                 new Bet {Customer = 1, Stake = 1, Win = 2},
                 new Bet {Customer = 1, Stake = 1, Win = 3},
-                new Bet {Customer = 1, Stake = 1, Win = 0},
-                new Bet {Customer = 1, Stake = 1, Win = 10},
+                new Bet {Customer = 1, Stake = 1, Win = 1000},
                 new Bet {Customer = 1, Stake = 1, Win = 0},
                 new Bet {Customer = 2, Stake = 1, Win = 0},
                 new Bet {Customer = 2, Stake = 1, Win = 0},
                 new Bet {Customer = 2, Stake = 1, Win = 1},
                 new Bet {Customer = 3, Stake = 1, Win = 1}
             };
-            var results = riskMetrics.Evaluate(bets, new Bet[] {});
+            var unsettledBets = new Bet[] { new Bet { Customer = 1, Stake = 100, Win = 1000 }, new Bet { Customer = 3, Stake = 1, Win = 1 } };
+            var results = riskMetrics.Evaluate(settledBets, unsettledBets);
 
-            Assert.AreEqual(1, results.Count(), "Only customer 1 has a high win rate");
-            Assert.IsTrue(results.Single().StartsWith($"UNUSUAL: Customer {bets[0].Customer} has a win rate of "));
+            Assert.IsTrue(results.Single().StartsWith($"UNUSUAL: Customer {settledBets[3].Customer} has exceeded the high win threshold of"));
         }
 
         #region Nested type: TestConfig
